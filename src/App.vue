@@ -246,6 +246,7 @@ a:hover {
     height: 150px;
     min-width: 50px;
     margin: 0 8px 8px 0; /* Some gutter */
+    cursor: pointer;
 }
 .item picture {
     width: 100%;
