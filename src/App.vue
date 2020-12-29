@@ -1,5 +1,5 @@
 <template>
-    <div class="layout">
+    <div :class="['layout', { 'input-focus': focusSearch }]">
         <div class="search-box">
             <form @submit.prevent="submit">
                 <input
@@ -7,6 +7,8 @@
                     class="search-input"
                     v-model="q"
                     placeholder="search gif..."
+                    @focus="onInputFocus"
+                    @blur="onInputBlur"
                 />
             </form>
         </div>
@@ -81,6 +83,7 @@ export default {
 
         loading: false,
         showPreview: false,
+        focusSearch: false,
     }),
 
     computed: {
@@ -133,6 +136,14 @@ export default {
             this.$refs.searchInput.blur()
         },
 
+        onInputFocus() {
+            this.focusSearch = true
+        },
+
+        onInputBlur() {
+            this.focusSearch = false
+        },
+
         selectItem(index) {
             this.activeItemIdx = index
             this.showPreview = true
@@ -175,23 +186,38 @@ a:hover {
     background: linear-gradient(to right bottom, #feac5e, #c779d0, #4bc0c8);
 }
 .layout {
-    display: grid;
-    grid-template-rows: 80px auto;
+    display: flex;
+    flex-direction: column;
     height: 100%;
     max-width: 720px;
     margin: 0 auto;
 }
+
+.input-focus .search-box {
+    height: 200px;
+}
+.input-focus .result {
+    height: calc(100% - 200px);
+}
+
 .search-box {
-    grid-row-start: 1;
-    align-self: center;
+    height: 80px;
+    width: 100%;
     padding: 0 12px;
-    /* grid-row-end: row1-end; */
-    /* padding: 32px; */
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    transition: height 0.5s;
+}
+.search-box form {
+    width: 100%;
+    height: 100%;
+    padding: 8px 0;
 }
 .search-input {
     display: block;
     width: 100%;
-    margin-bottom: 0.3em;
+    height: 100%;
     background: 0;
     border: 0;
     color: #ffffff;
@@ -201,11 +227,13 @@ a:hover {
 .search-input::placeholder {
     color: #ffffffb4;
 }
+
 .result {
-    grid-row-start: 2;
-    height: 100%;
+    /* grid-row-start: 2; */
+    height: calc(100% - 80px);
     overflow-y: auto;
     padding: 0 4px;
+    transition: height 0.5s;
 }
 .result-items {
     display: flex;
