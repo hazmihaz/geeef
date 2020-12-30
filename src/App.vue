@@ -1,5 +1,5 @@
 <template>
-    <div :class="['layout', { 'input-focus': focusSearch }]">
+    <div :class="['layout', { 'input-focus': focusSearch || !items.length }]">
         <div class="search-box">
             <form @submit.prevent="submit">
                 <input
@@ -99,8 +99,6 @@ export default {
             const res = await fetch(API_URL + path).then(res => res.json())
             this.loading = false
 
-            console.log('response', res)
-
             const items = res.data.map(el => ({
                 preview: el.images.fixed_height_small.url,
                 preview_large_mp4: el.images.original.mp4,
@@ -194,10 +192,10 @@ a:hover {
 }
 
 .input-focus .search-box {
-    height: 200px;
+    height: 50%;
 }
 .input-focus .result {
-    height: calc(100% - 200px);
+    height: 50%;
 }
 
 .search-box {
