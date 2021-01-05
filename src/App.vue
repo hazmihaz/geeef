@@ -7,6 +7,7 @@
                     class="search-input"
                     v-model="q"
                     placeholder="search gif..."
+                    type="text"
                     @focus="onInputFocus"
                     @blur="onInputBlur"
                 />
@@ -34,7 +35,7 @@
                     @click="loadMore"
                     type="button"
                     value="load more"
-                    class="btn"
+                    class="btn btn-load"
                 />
 
                 <div class="loader">
@@ -160,7 +161,11 @@ export default {
 </script>
 
 <style>
-input:focus {
+input[type='text']:focus {
+    outline: none;
+    border: none;
+}
+input[type='button']:focus {
     outline: none;
     border: 1px solid #e94fb6;
     border-radius: 4px;
@@ -192,10 +197,10 @@ a:hover {
 }
 
 .input-focus .search-box {
-    height: 50%;
+    height: 30%;
 }
 .input-focus .result {
-    height: 50%;
+    height: 70%;
 }
 
 .search-box {
