@@ -17,12 +17,17 @@
 
             <div class="share">
                 <input
-                    class="btn"
+                    class="btn btn-copy"
                     type="button"
                     value="copy url"
                     @click="copy"
                 />
-                <input class="btn" type="button" value="share" @click="share" />
+                <input
+                    class="btn btn-share"
+                    type="button"
+                    value="share"
+                    @click="share"
+                />
             </div>
 
             <div class="close">
